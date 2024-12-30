@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citex - Citation Retrieval Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.3.2/markdown-it.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            height: 100vh;
+            background-color: #1e1e1e;
+        }
+
+        header {
+            background: linear-gradient(45deg, #6200ea, #3700b3);
+            text-align: center;
+            padding: 20px;
+            color: #ffffff;
+            font-size: 1.75rem;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #1e1e1e;
+        }
+
+        .agent-message {
+            padding: 15px;
+            border-radius: 12px;
+            word-wrap: break-word;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .agent-message.system {
+            background-color: #2e2e2e;
+            color: #e0e0e0;
+        }
+
+        .agent-message.result {
+            background-color: #3a3f5a;
+            color: #ffffff;
+            align-self: flex-start;
+        }
+
+        .agent-message.user {
+            background-color: linear-gradient(45deg, #4caf50, #388e3c);
+            color: #ffffff;
+            align-self: flex-end;
+        }
+
+        #input-container {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #1e1e1e;
+            border-top: 1px solid #555;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #2e2e2e;
+            color: #e0e0e0;
+        }
+
+        #message-input:focus {
+            outline: 2px solid #6200ea;
+        }
+
+        #send-button {
+            margin-left: 10px;
+            padding: 15px;
+            background: linear-gradient(45deg, #6200ea, #3700b3);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #send-button:hover {
+            background-color: #3700b3;
+        }
+
+        #send-button:disabled {
+            background-color: #424242;
+            cursor: not-allowed;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <header>Citex - Citation Retrieval Assistant</header>
+        <div id="messages" role="log" aria-live="polite"></div>
+        <div id="input-container">
+            <input type="text" id="message-input" placeholder="Enter your query..." autocomplete="off" aria-label="Message input field">
+            <button id="send-button" disabled aria-label="Send message">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const md = window.markdownit();
+        const wsUrl = window.location.origin.replace(/^http/, 'ws') + '/ws';
+        const ws = new WebSocket(wsUrl);
+        const messages = document.getElementById('messages');
+        const input = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        ws.onopen = () => console.log('Connected to WebSocket');
+
+        ws.onmessage = (event) => {
+            const response = JSON.parse(event.data);
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'agent-message';
+            
+            if (response.type === 'error') {
+                messageDiv.classList.add('system');
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = `Error: ${response.message}`;
+            } else if (response.type === 'update') {
+                if (response.agent === 'FormatterAgent') {
+                    messageDiv.classList.add('result');
+                    messageDiv.innerHTML = md.render(response.content);
+                } else {
+                    messageDiv.classList.add('system');
+                    messageDiv.textContent = `${response.agent}: ${response.content}`;
+                }
+            }
+            
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket error:', error);
+            const errorMessage = document.createElement('div');
+            errorMessage.classList.add('agent-message', 'system');
+            errorMessage.style.color = 'red';
+            errorMessage.textContent = 'Connection lost. Please try again later.';
+            messages.appendChild(errorMessage);
+        };
+
+        ws.onclose = () => {
+            const closeMessage = document.createElement('div');
+            closeMessage.classList.add('agent-message', 'system');
+            closeMessage.style.color = 'orange';
+            closeMessage.textContent = 'Connection closed. Reconnecting...';
+            messages.appendChild(closeMessage);
+            setTimeout(() => location.reload(), 5000);
+        };
+
+        function sendMessage() {
+            const message = input.value.trim();
+            if (message) {
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.className = 'agent-message user';
+                userMessageDiv.textContent = `You: ${message}`;
+                messages.appendChild(userMessageDiv);
+
+                ws.send(JSON.stringify({ type: 'user_message', content: message }));
+
+                input.value = '';
+                sendButton.disabled = true;
+            }
+        }
+
+        input.addEventListener('input', () => {
+            sendButton.disabled = input.value.trim() === '';
+        });
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>
+

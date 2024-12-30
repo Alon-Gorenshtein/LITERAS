@@ -1,0 +1,13 @@
+services:
+  academic-search-bot:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: academic-search-bot
+    ports:
+      - "8000:8000"
+    env_file:
+      - env_file.env
+    volumes:
+      - ./app:/app/app
+      - ./static:/app/static
