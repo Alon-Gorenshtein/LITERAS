@@ -103,16 +103,6 @@ Gorenstein A., Shihada K., Sorka M., Aran D., Shelly S. "LITERAS: Multi-Agent AI
 
 ---
 
-## Authors and Contributions
-
-- **Alon Gorenstein**: Study concept, design, data acquisition, analysis, drafting, critical revisions.
-- **Kamel Shihada**: Data acquisition, analysis, and interpretation.
-- **Moran Sorka**: Analysis, interpretation, and critical revisions.
-- **Dvir Aran**: Analysis, interpretation, and critical revisions.
-- **Shahar Shelly**: Study supervision, design, drafting, and critical revisions.
-
----
-
 ## Contact
 
 For any questions or collaboration inquiries, contact:
