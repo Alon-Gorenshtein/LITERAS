@@ -21,7 +21,8 @@
 3. **Validation Agent**: Scores and evaluates articles for quality and relevance.
 4. **Critic Agent**: Provides secondary quality checks and ensures search refinements.
 5. **Synthesis Agent**: Compiles findings into a structured literature review draft.
-6. **Formatting Agent**: Formats outputs (e.g., JSON) for seamless integration into workflows.
+6. **Critic Agent (Reference & Text Review)**: Conducts a final check of the drafted text and references to ensure accuracy and clarity.
+7. **Formatting Agent**: Formats outputs (e.g., JSON) for seamless integration into workflows.
 
 ---
 
@@ -115,8 +116,8 @@ Gorenstein A., Shihada K., Sorka M., Aran D., Shelly S. "LITERAS: Multi-Agent AI
 ## Contact
 
 For any questions or collaboration inquiries, contact:
-**Dr. Shahar Shelly**  
-s_shelly@rmc.gov.il
+**Alon Gorenshtein**  
+alon323@hotmail.com
 
 ---
 
