@@ -1,4 +1,5 @@
 # LITERAS: Literature Review and Citation Retrieval Agents
+![LITERAS System Architecture](assets/architecture.png)
 
 **LITERAS** (Literature Review and Citation Retrieval Agents) is a multi-agent AI framework designed to streamline the process of academic literature reviews and citation retrieval for medical research. By leveraging the capabilities of large language models (LLMs) and advanced multi-agent systems, LITERAS enhances accuracy, reduces hallucinated references, and improves the quality of retrieved citations.
 
