@@ -38,7 +38,7 @@
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/<username>/literas.git
+   git clone https://github.com/Alon-Gorenshtein/literas.git
    cd literas
    ```
 
