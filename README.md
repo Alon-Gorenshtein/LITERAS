@@ -1,4 +1,6 @@
 # LITERAS: Literature Review and Citation Retrieval Agents
+[Published article](https://doi.org/10.1016/j.compbiomed.2025.110363) · [Alon Gorenshtein: research and publications](https://alon-gorenshtein.github.io/projects/#literas)
+
 ![LITERAS System Architecture](architecture.png)
 
 **LITERAS** (Literature Review and Citation Retrieval Agents) is a multi-agent AI framework designed to streamline the process of academic literature reviews and citation retrieval for medical research. By leveraging the capabilities of large language models (LLMs) and advanced multi-agent systems, LITERAS enhances accuracy, reduces hallucinated references, and improves the quality of retrieved citations.
@@ -99,8 +101,10 @@
 If you use LITERAS in your research, please cite:
 
 ```
-Gorenstein A., Shihada K., Sorka M., Aran D., Shelly S. "LITERAS: Multi-Agent AI Framework for Accurate Literature Review and Citation Retrieval." GitHub, 2024.
+Gorenshtein A, Shihada K, Sorka M, Aran D, Shelly S. LITERAS: Biomedical literature review and citation retrieval agents. Computers in Biology and Medicine. 2025;192:110363. doi:10.1016/j.compbiomed.2025.110363.
 ```
+
+The published article is available at https://doi.org/10.1016/j.compbiomed.2025.110363. Citation metadata are also provided in `CITATION.cff` for GitHub’s “Cite this repository” feature.
 
 ---
 

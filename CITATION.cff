@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this research software, please cite the associated published article below."
+type: software
+title: "LITERAS: Literature Review and Citation Retrieval Agents"
+authors:
+  - family-names: Gorenshtein
+    given-names: Alon
+    orcid: "https://orcid.org/0009-0000-7542-8608"
+repository-code: "https://github.com/Alon-Gorenshtein/LITERAS"
+url: "https://alon-gorenshtein.github.io/projects/#literas"
+preferred-citation:
+  type: article
+  title: "LITERAS: Biomedical literature review and citation retrieval agents"
+  authors:
+    - family-names: "Gorenshtein"
+      given-names: "Alon"
+    - family-names: "Shihada"
+      given-names: "Kamel"
+    - family-names: "Sorka"
+      given-names: "Moran"
+    - family-names: "Aran"
+      given-names: "Dvir"
+    - family-names: "Shelly"
+      given-names: "Shahar"
+  journal: "Computers in Biology and Medicine"
+  year: 2025
+  doi: "10.1016/j.compbiomed.2025.110363"
+  volume: "192"
+  start: "110363"
